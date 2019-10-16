@@ -48,7 +48,7 @@ int main()
 
     	char dummy;
     	scanf("%c", &dummy);
-    	
+
     	char input2;
     	scanf("%c",&input2);
 
@@ -84,7 +84,7 @@ int main()
 
     	char dummy;
     	scanf("%c", &dummy);
-    	
+
 		char input2;
 		scanf("%c",&input2);
 
@@ -120,7 +120,7 @@ int main()
 
     	char dummy;
     	scanf("%c", &dummy);
-    	
+
     	char input2;
 		scanf("%c",&input2);
 
@@ -156,7 +156,7 @@ int main()
 
     	char dummy;
     	scanf("%c", &dummy);
-    	
+
     	char input2;
     	scanf("%c",&input2);
 
@@ -246,41 +246,13 @@ int triangle_triangle(triangle T1, triangle T2)
 	l3.B.x = T1.A.x;
 	l3.B.y = T1.A.y;
 
-	line l4;   //point A and point B
-	line l5;  	//point B and point C
-	line l6;	//point C and point A
-	l4.A.x = T2.A.x;
-	l4.A.y = T2.A.y;
-	l4.B.x = T2.B.x;
-	l4.B.y = T2.B.y;
 
-	l5.A.x = T2.B.x;
-	l5.A.y = T2.B.y;
-	l5.B.x = T2.C.x;
-	l5.B.y = T2.C.y;
 
-	l6.A.x = T2.C.x;
-	l6.A.y = T2.C.y;
-	l6.B.x = T2.A.x;
-	l6.B.y = T2.A.y;
-
-	if(line_line(l1,l4) == 1)
+	if(line_triangle(l1,T2) == 1)
 		return 1;
-	if(line_line(l1,l5) == 1)
+	if(line_triangle(l2,T2) == 1)
 		return 1;
-	if(line_line(l1,l6) == 1)
-		return 1;
-	if(line_line(l2,l4) == 1)
-		return 1;
-	if(line_line(l2,l5) == 1)
-		return 1;
-	if(line_line(l2,l6) == 1)
-		return 1;
-	if(line_line(l3,l4) == 1)
-		return 1;
-	if(line_line(l3,l5) == 1)
-		return 1;
-	if(line_line(l3,l6) == 1)
+	if(line_triangle(l3,T2) == 1)
 		return 1;
 	else
 		return 0;
@@ -360,7 +332,7 @@ int check_same_sign(line l, point a, point b)
 {
 	float m = (l.B.y - l.A.y)/(l.B.x - l.A.x);
 	float c = (l.B.x*l.A.y - l.A.x*l.B.y)/(l.B.x - l.A.x);
-	
+
 
 	if((a.y - m*a.x - c <= 0 && b.y - m*b.x - c <= 0) || (a.y - m*a.x - c >= 0 && b.y - m*b.x - c >= 0))
 	{
@@ -390,7 +362,7 @@ int point_triangle(triangle T, point a)
 	l3.B.x = T.A.x;
 	l3.B.y = T.A.y;
 
-	if(check_same_sign(l1, a, T.C) == 1)
+/*	if(check_same_sign(l1, a, T.C) == 1)
 	{
 		if(check_same_sign(l2, a, T.A) == 1)
 		{
@@ -411,7 +383,15 @@ int point_triangle(triangle T, point a)
 	else
 	{
 		return 0;
-	}
+	}*/
+	if(line_point(l1,a)==1)
+	return 1;
+	if(line_point(l2,a)==1)
+	return 1;
+	if(line_point(l3,a)==1)
+	return 1;
+	else
+	return 0;
 }
 
 int circle_circle(circle c1, circle c2)
@@ -534,12 +514,12 @@ int line_line(line l1, line l2)
 		if(l1.B.x - l1.A.x == 0)
 		{
 			x_term = l1.A.x;
-			y_term = m2*x_term + c2;		
+			y_term = m2*x_term + c2;
 		}
 		else if(l2.B.x - l2.A.x == 0)
 		{
 			x_term = l2.A.x;
-			y_term = m1*x_term + c1;		
+			y_term = m1*x_term + c1;
 		}
 		else
 		{
@@ -593,4 +573,3 @@ int line_line(line l1, line l2)
 
     //Hello
 }
-
