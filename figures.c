@@ -6,22 +6,26 @@ typedef struct{
 	float x;
 	float y;
 }point;
+point read_point();
 
 typedef struct{
 	point A;
 	point B;
 }line;
+line read_line();
 
 typedef struct{
 	point A;
 	point B;
 	point C;
 }triangle;
+triangle read_triangle();
 
 typedef struct{
 	point C;
 	float R;
 }circle;
+circle read_circle();
 
 int circle_point( circle c1, point a);
 int line_point( line l, point a);
@@ -38,162 +42,115 @@ int triangle_triangle(triangle T, triangle T1);
 int main()
 {
     int flag;
-    char input1;
+    char input1, input2, dummy;
+
+    point p1, p2;
+    line l1, l2;
+    triangle t1, t2;
+    circle c1, c2;
+
     scanf("%c",&input1);
+    if(input1 == 'P')
+        p1 = read_point();
+    else if(input1 == 'L')
+        l1 = read_line();
+    else if(input1 == 'T')
+        t1 = read_triangle();
+    else if(input1 == 'C')
+        c1 = read_circle();
+
+    scanf("%c", &dummy);
+    scanf("%c",&input2);
+    if(input2 == 'P')
+        p2 = read_point();
+    else if(input2 == 'L')
+        l2 = read_line();
+    else if(input2 == 'T')
+        t2 = read_triangle();
+    else if(input2 == 'C')
+        c2 = read_circle();
 
     if(input1 == 'P')
     {
-    	point p;
-    	scanf("%f %f",&p.x,&p.y);
-
-    	char dummy;
-    	scanf("%c", &dummy);
-
-    	char input2;
-    	scanf("%c",&input2);
-
-    	if(input2 == 'P')
-    	{
-    		point p2;
-    		scanf("%f %f",&p2.x,&p2.y);
-    		flag = point_point(p,p2);
-    	}
-    	else if(input2 == 'L')
-    	{
-    		line l;
-    		scanf("%f %f %f %f",&l.A.x,&l.A.y,&l.B.x,&l.B.y);
-    		flag = line_point(l,p);
-    	}
-    	else if(input2 == 'T')
-    	{
-    		triangle t;
-    		scanf("%f %f %f %f %f %f",&t.A.x,&t.A.y,&t.B.x,&t.B.y,&t.C.x,&t.C.y);
-    		flag = point_triangle(t,p);
-    	}
-    	else if(input2 == 'C')
-    	{
-    		circle c;
-    		scanf("%f %f %f",&c.C.x,&c.C.y,&c.R);
-    		flag = circle_point(c,p);
-    	}
+        if(input2 == 'P')
+            flag = point_point(p1,p2);
+        else if(input2 == 'L')
+            flag = line_point(l2,p1);
+        else if(input2 == 'T')
+            flag = point_triangle(t2,p1);
+        else if(input2 == 'C')
+            flag = circle_point(c2,p1);
     }
     else if(input1 == 'L')
     {
-		line l;
-		scanf("%f %f %f %f",&l.A.x,&l.A.y,&l.B.x,&l.B.y);
-
-    	char dummy;
-    	scanf("%c", &dummy);
-
-		char input2;
-		scanf("%c",&input2);
-
-		if(input2 == 'P')
-    	{
-    		point p2;
-    		scanf("%f%f",&p2.x,&p2.y);
-    		flag = line_point(l,p2);
-    	}
-		else if(input2 == 'L')
-    	{
-    		line l1;
-    		scanf("%f %f %f %f",&l1.A.x,&l1.A.y,&l1.B.x,&l1.B.y);
-    		flag = line_line(l,l1);
-    	}
-    	else if(input2 == 'T')
-    	{
-    		triangle t;
-    		scanf("%f %f %f %f %f %f",&t.A.x,&t.A.y,&t.B.x,&t.B.y,&t.C.x,&t.C.y);
-   			flag = line_triangle(l,t);
-    	}
-    	else if(input2 == 'C')
-    	{
-    		circle c;
-    		scanf("%f %f %f",&c.C.x,&c.C.y,&c.R);
-    		flag = circle_line(l,c);
-    	}
+        if(input2 == 'P')
+            flag = line_point(l1,p2);
+        else if(input2 == 'L')
+            flag = line_line(l1,l2);
+        else if(input2 == 'T')
+            flag = line_triangle(l1,t2);
+        else if(input2 == 'C')
+            flag = circle_line(l1,c2);
     }
     else if(input1 == 'T')
     {
-    	triangle t;
-    	scanf("%f %f %f %f %f %f",&t.A.x,&t.A.y,&t.B.x,&t.B.y,&t.C.x,&t.C.y);
-
-    	char dummy;
-    	scanf("%c", &dummy);
-
-    	char input2;
-		scanf("%c",&input2);
-
-		if(input2 == 'P')
-    	{
-    		point p2;
-    		scanf("%f %f",&p2.x,&p2.y);
-    		flag = point_triangle(t,p2);
-    	}
-    	else if(input2 == 'L')
-    	{
-    		line l;
-    		scanf("%f %f %f %f",&l.A.x,&l.A.y,&l.B.x,&l.B.y);
-    		flag = line_triangle(l,t);
-    	}
-    	if(input2 == 'T')
-    	{
-    		triangle t1;
-    		scanf("%f %f %f %f %f %f",&t1.A.x,&t1.A.y,&t1.B.x,&t1.B.y,&t1.C.x,&t1.C.y);
-    		flag = triangle_triangle(t,t1);
-    	}
-    	else if(input2 == 'C')
-    	{
-    		circle c;
-    		scanf("%f %f %f",&c.C.x,&c.C.y,&c.R);
-    		flag = triangle_circle(t,c);
-    	}
+        if(input2 == 'P')
+            flag = point_triangle(t1,p2);
+        else if(input2 == 'L')
+            flag = line_triangle(l2,t1);
+        else if(input2 == 'T')
+            flag = triangle_triangle(t1,t2);
+        else if(input2 == 'C')
+            flag = triangle_circle(t1,c2);
     }
     else if(input1 == 'C')
     {
-    	circle c;
-    	scanf("%f %f %f",&c.C.x,&c.C.y,&c.R);
-
-    	char dummy;
-    	scanf("%c", &dummy);
-
-    	char input2;
-    	scanf("%c",&input2);
-
-    	if(input2 == 'P')
-    	{
-    		point p2;
-    		scanf("%f %f",&p2.x,&p2.y);
-    		flag = circle_point(c,p2);
-    	}
-    	else if(input2 == 'L')
-    	{
-    		line l;
-    		scanf("%f %f %f %f",&l.A.x,&l.A.y,&l.B.x,&l.B.y);
-    		flag = circle_line(l,c);
-    	}
-    	else if(input2 == 'T')
-    	{
-    		triangle t;
-    		scanf("%f %f %f %f %f %f",&t.A.x,&t.A.y,&t.B.x,&t.B.y,&t.C.x,&t.C.y);
-    		flag = triangle_circle(t,c);
-    	}
-    	else if(input2 == 'C')
-    	{
-    		circle c1;
-    		scanf("%f %f %f",&c1.C.x,&c1.C.y,&c1.R);
-    		flag = circle_circle(c,c1);
-    	}
+        if(input2 == 'P')
+            flag = circle_point(c1,p2);
+        else if(input2 == 'L')
+            flag = circle_line(l2,c1);
+        else if(input2 == 'T')
+            flag = triangle_circle(t2,c1);
+        else if(input2 == 'C')
+            flag = circle_circle(c1,c2);
     }
 
     if(flag == 0)
     {
-    	printf("The primitives do not intersect.\n");
+        printf("The primitives do not intersect.\n");
     }
     else if(flag == 1)
     {
-    	printf("The primitives intersect.\n");
+        printf("The primitives intersect.\n");
     }
+}
+
+point read_point()
+{
+	point p;
+	scanf("%f %f",&p.x,&p.y);
+	return p;
+}
+
+line read_line()
+{
+	line l;
+	scanf("%f %f %f %f",&l.A.x,&l.A.y,&l.B.x,&l.B.y);
+	return l;
+}
+
+triangle read_triangle()
+{
+	triangle t;
+	scanf("%f %f %f %f %f %f",&t.A.x,&t.A.y,&t.B.x,&t.B.y,&t.C.x,&t.C.y);
+	return t;
+}
+
+circle read_circle()
+{
+	circle c;
+	scanf("%f %f %f",&c.C.x,&c.C.y,&c.R);
+	return c;
 }
 
 int triangle_circle(triangle T, circle c)
